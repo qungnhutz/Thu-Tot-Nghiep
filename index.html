@@ -1,0 +1,1058 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thư Mời Lễ Tốt Nghiệp</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Roboto:wght@300;400&family=Dancing+Script:wght@700&family=Parisienne&family=Cormorant+Garamond:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #ffcccc 0%, #ff6666 100%);
+            color: #333;
+            overflow-x: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            position: relative;
+        }
+
+        .name-form-container {
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            max-width: 600px;
+            margin: 50px auto;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            position: relative;
+            animation: fadeIn 1s ease-in;
+            border: 3px solid #8b0000;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .name-form-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/diagonal-striped-brick.png');
+            opacity: 0.1;
+            z-index: 0;
+        }
+
+        .name-form-container h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #8b0000;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .name-form-container i {
+            font-size: 3.5rem;
+            color: #000000;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+            animation: bounce 2s infinite;
+        }
+
+        .name-form-container input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 20px;
+            border: 2px solid #8b0000;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.9);
+            position: relative;
+            z-index: 1;
+        }
+
+        .name-form-container input:focus {
+            border-color: #a11212;
+            box-shadow: 0 0 10px rgba(139, 0, 0, 0.3);
+            transform: scale(1.02);
+        }
+
+        .name-form-container input::placeholder {
+            color: #999;
+            transition: all 0.3s ease;
+        }
+
+        .name-form-container input:focus::placeholder {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+
+        .name-form-container button {
+            padding: 15px 40px;
+            background: #8b0000;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.3rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .name-form-container button:hover {
+            background: #a11212;
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .emoji {
+            position: absolute;
+            font-size: 2rem;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .emoji:nth-child(1) { top: 10%; left: 10%; animation: float 4s ease-in-out infinite; }
+        .emoji:nth-child(2) { top: 20%; right: 15%; animation: pulse 3s ease-in-out infinite; }
+        .emoji:nth-child(3) { bottom: 15%; left: 15%; animation: float 5s ease-in-out infinite; }
+        .emoji:nth-child(4) { bottom: 10%; right: 10%; animation: pulse 4s ease-in-out infinite; }
+        .emoji:nth-child(5) { top: 50%; left: 5%; animation: float 6s ease-in-out infinite; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); opacity: 0.7; }
+            50% { transform: scale(1.2); opacity: 1; }
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .graduation-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 2000;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .graduation-effect.show {
+            display: flex;
+        }
+
+        .graduation-cap {
+            position: absolute;
+            font-size: 3rem;
+            color: #8b0000;
+            animation: fall 3s linear infinite;
+        }
+
+        @keyframes fall {
+            0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+
+        .graduation-text-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2100;
+            display: none;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+            font-family: 'Dancing Script', cursive;
+            font-size: 4rem;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: textFadeIn 1s ease-in;
+        }
+
+        .graduation-text-overlay.show {
+            display: flex;
+        }
+
+        @keyframes textFadeIn {
+            0% { opacity: 0; transform: scale(0.8); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 50px auto;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 50%, #ffcccc 100%);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            border: 1px solid transparent;
+            animation: fadeIn 1.2s ease-in;
+            display: none;
+            position: relative;
+            z-index: 1;
+        }
+
+        .photo-slider {
+            text-align: center;
+            margin: 30px 0;
+            transform: translateY(-30px);
+            position: relative;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            overflow: hidden;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .slider-container {
+            display: flex;
+            flex-direction: row;
+            transition: transform 0.5s ease-in-out;
+        }
+
+        .slider-item {
+            flex: 0 0 300px;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+        }
+
+       .slider-nav button {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 1.5rem;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+
+        
+
+        .content {
+            padding: 60px 40px;
+            text-align: center;
+        }
+
+        .content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #8b0000;
+            margin-bottom: 25px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .content p {
+            font-size: 1.2rem;
+            line-height: 1.9;
+            color: #555;
+            margin-bottom: 25px;
+        }
+
+        .guest-name {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #8b0000;
+            opacity: 0.7;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+
+        .countdown {
+            margin: 30px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(255, 204, 204, 0.8));
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .countdown h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.2rem;
+            color: #8b0000;
+            margin-bottom: 25px;
+            text-align: center;
+            letter-spacing: 2px;
+        }
+
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-timer div {
+            background: #ffffff;
+            padding: 20px 15px;
+            border-radius: 10px;
+            min-width: 90px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .countdown-timer div:hover {
+            transform: translateY(-5px);
+        }
+
+        .countdown-timer span {
+            font-family: 'Roboto', sans-serif;
+            font-size: 2rem;
+            font-weight: bold;
+            color: #8b0000;
+            display: block;
+            animation: flip 0.5s ease-in-out;
+        }
+
+        .countdown-timer div::after {
+            content: attr(data-label);
+            font-size: 1rem;
+            color: #555;
+            text-transform: uppercase;
+            margin-top: 5px;
+            display: block;
+        }
+
+        @keyframes flip {
+            0% { transform: rotateX(90deg); opacity: 0; }
+            100% { transform: rotateX(0); opacity: 1; }
+        }
+
+        .details {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 40px 0;
+        }
+
+        .detail-item {
+            flex: 1;
+            min-width: 220px;
+            margin: 15px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            border-radius: 15px;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .detail-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .detail-item i {
+            font-size: 2rem;
+            color: #8b0000;
+            margin-bottom: 15px;
+        }
+
+        .detail-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            color: #8b0000;
+            margin-bottom: 12px;
+        }
+
+        .detail-item p {
+            font-size: 1.1rem;
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .thank-you {
+            margin: 40px 0;
+            padding: 30px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+        }
+
+        .thank-you h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #8b0000;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .thank-you p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.2rem;
+            color: #555;
+            line-height: 1.9;
+        }
+
+        .journey {
+            margin: 40px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #fff5f5 0%, #ffe6e6 100%);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .journey h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.8rem;
+            color: #8b0000;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .journey-timeline {
+            position: relative;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .journey-timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #8b0000;
+            transform: translateX(-50%);
+        }
+
+        .journey-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+            width: 50%;
+            animation: scaleIn 0.5s ease-out;
+        }
+
+        .journey-item:nth-child(odd) {
+            left: 0;
+            justify-content: flex-end;
+        }
+
+        .journey-item:nth-child(even) {
+            left: 50%;
+            justify-content: flex-start;
+        }
+
+        .journey-item:nth-child(odd) .journey-item-content {
+            text-align: right;
+            padding-right: 20px;
+        }
+
+        .journey-item:nth-child(even) .journey-item-content {
+            text-align: left;
+            padding-left: 20px;
+        }
+
+        .journey-item img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            position: absolute;
+        }
+
+        .journey-item:nth-child(odd) img {
+            right: -90px;
+        }
+
+        .journey-item:nth-child(even) img {
+            left: -90px;
+        }
+
+        .journey-item-content {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            transition: transform 0.3s ease;
+        }
+
+        .journey-item-content:hover {
+            transform: translateY(-5px);
+        }
+
+        .journey-item-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: #8b0000;
+            margin-bottom: 10px;
+        }
+
+        .journey-item-content p {
+            font-family: 'Roboto', sans-serif;
+            font-size: 1.1rem;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .journey-item::before {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            background: #8b0000;
+            border-radius: 50%;
+            z-index: 1;
+        }
+
+        .journey-item:nth-child(odd)::before {
+            right: -8px;
+        }
+
+        .journey-item:nth-child(even)::before {
+            left: -8px;
+        }
+
+        @keyframes scaleIn {
+            0% { transform: scale(0.8); opacity: 0; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @media (max-width: 600px) {
+            .name-form-container {
+                margin: 20px;
+                padding: 30px;
+            }
+
+            .name-form-container h2 {
+                font-size: 2rem;
+            }
+
+            .name-form-container i {
+                font-size: 2.5rem;
+            }
+
+            .name-form-container input {
+                font-size: 1rem;
+            }
+
+            .name-form-container button {
+                font-size: 1.1rem;
+                padding: 12px 30px;
+            }
+
+            .emoji {
+                font-size: 1.5rem;
+            }
+
+            .graduation-text-overlay {
+                font-size: 2.5rem;
+            }
+
+            .content {
+                padding: 30px 20px;
+            }
+
+            .content h2 {
+                font-size: 2rem;
+            }
+
+            .guest-name {
+                font-size: 2rem;
+            }
+
+            .photo-slider {
+                max-width: 250px;
+            }
+
+            .slider-item {
+                flex: 0 0 250px;
+                height: 350px;
+            }
+
+            .countdown {
+                padding: 20px;
+            }
+
+            .countdown h3 {
+                font-size: 1.8rem;
+            }
+
+            .countdown-timer {
+                flex-direction: row;
+                flex-wrap: nowrap;
+                gap: 10px;
+            }
+
+            .countdown-timer div {
+                min-width: 60px;
+                padding: 10px 8px;
+            }
+
+            .countdown-timer span {
+                font-size: 1.4rem;
+            }
+
+            .countdown-timer div::after {
+                font-size: 0.8rem;
+                margin-top: 3px;
+            }
+
+            .details {
+                flex-direction: column;
+                margin: 20px 0;
+                gap: 10px;
+            }
+
+            .detail-item {
+                min-width: unset;
+                width: 90%;
+                margin: 10px auto;
+                padding: 20px;
+            }
+
+            .detail-item i {
+                font-size: 1.8rem;
+            }
+
+            .detail-item h3 {
+                font-size: 1.4rem;
+            }
+
+            .detail-item p {
+                font-size: 1rem;
+            }
+
+            .thank-you {
+                padding: 20px;
+            }
+
+            .thank-you h3 {
+                font-size: 1.8rem;
+            }
+
+            .thank-you p {
+                font-size: 1.1rem;
+            }
+
+            .journey {
+                padding: 20px;
+            }
+
+            .journey h2 {
+                font-size: 2rem;
+            }
+
+            .journey-timeline::before {
+                left: 20px;
+            }
+
+            .journey-item {
+                width: 100%;
+                left: 0 !important;
+                flex-direction: column;
+                align-items: flex-start;
+                margin-bottom: 30px;
+            }
+
+            .journey-item img {
+                position: static;
+                width: 100%;
+                height: auto;
+                margin-bottom: 15px;
+            }
+
+            .journey-item-content {
+                width: 100%;
+                text-align: center !important;
+                padding: 15px;
+            }
+
+            .journey-item::before {
+                left: 12px !important;
+            }
+
+            .journey-item:nth-child(even) img,
+            .journey-item:nth-child(odd) img {
+                left: 0;
+                right: 0;
+            }
+
+            .container {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="name-form-container" id="nameForm">
+        <i class="fas fa-graduation-cap"></i>
+        <h2>CHÀO MỪNG ĐẾN VỚI LỄ TỐT NGHIỆP!</h2>
+        <input type="text" id="guestName" placeholder="Nhập họ và tên của bạn để nhận thư mời" required>
+        <button onclick="submitName()">Xác Nhận Thư Mời</button>
+        <span class="emoji">🎓</span>
+    </div>
+
+    <div class="graduation-effect" id="graduationEffect">
+        <!-- Fireworks handled via JavaScript -->
+    </div>
+
+    <div class="graduation-text-overlay" id="graduationText">
+        ThaiAnhNgo_ GRADUATION
+    </div>
+
+    <div class="container" id="invitation">
+        <audio id="backgroundMusic" src="music.mp3" loop></audio>
+        <div class="content">
+            <div class="photo-slider">
+                <div class="slider-container" id="sliderContainer">
+                    <img class="slider-item" src="nhat1.jpg" alt="Ảnh tốt nghiệp 1">
+                    <img class="slider-item" src="nhat2.jpg" alt="Ảnh tốt nghiệp 2">
+                    <img class="slider-item" src="nhat3.jpg" alt="Ảnh tốt nghiệp 3">
+                </div>
+                <div class="slider-nav">
+                    <button onclick="prevSlide()"><i class="fas fa-chevron-left"></i></button>
+                    <button onclick="nextSlide()"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            <h2>🎀THƯ MỜI THAM DỰ LỄ TỐT NGHIỆP👩‍🎓</h2>
+            <p>Thương Gửi: <span id="displayName" class="guest-name">[Tên khách mời]</span>,</p>
+            <p>Ngày 30/5/2025, Thái Anh chính thức nhận bằng tốt nghiệp sau 4 năm học tập, rèn luyện tại UDA. Hành trình 4 năm qua Thái Anh đã may mắn nhận được sự yêu thương, động viên, đồng hành, chia sẻ, dẫn dắc từ người thân, bạn bè, các anh chị em,... Chặng đường ta bước tiếp cùng nhau đã rất đẹp và sẽ thật tuyệt vời hơn và thật tuyệt vời hơn khi nhưng người thân yêu của Thái Anh có thể đến chứng kiến khoảng khắc đáng nhớ này.</p>
+            
+            <div class="countdown">
+                <h3>ĐẾM NGƯỢC</h3>
+                <div class="countdown-timer" id="countdown">
+                    <div data-label="NGÀY"><span id="days">0</span></div>
+                    <div data-label="GIỜ"><span id="hours">0</span></div>
+                    <div data-label="PHÚT"><span id="minutes">0</span></div>
+                    <div data-label="GIÂY"><span id="seconds">0</span></div>
+                </div>
+            </div>
+            
+            <div class="details">
+                <div class="detail-item">
+                    <i class="fas fa-clock"></i>
+                    <h3>Thời gian</h3>
+                    <p>18:00 tối, Thứ Năm<br>ngày 22 tháng 6, 2025</p>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Địa điểm</h3>
+                    <p>ĐẠI HỌC ĐÔNG Á<br>33 Xô Viết Nghệ Tĩnh, Hải Châu, Đà Nẵng</p>
+                </div>
+                <div class="detail-item">
+                    <i class="fas fa-tshirt"></i>
+                    <h3>Trang phục</h3>
+                    <p>Thật lộng lẫy để chụp ảnh nhé</p>
+                </div>
+            </div>
+
+            <div class="thank-you">
+                <h3>Lời Cảm Ơn</h3>
+                <p>Cảm ơn bạn đã dành thời gian quý báu để tham dự ngày đặc biệt này. Sự hiện diện của bạn sẽ làm cho buổi lễ tốt nghiệp của mình thêm ý nghĩa và đáng nhớ. Hẹn gặp bạn tại sự kiện nhé!</p>
+            </div>
+
+            <div class="journey">
+                <h2>Hành Trình Đại Học Của ThaiAnhhhh</h2>
+                <div class="journey-timeline">
+                    <div class="journey-item">
+                        <img src="anh4.jpg" alt="Năm nhất">
+                        <div class="journey-item-content">
+                            <h3>Năm Nhất: 2021-2022</h3>
+                            <p>Cô sinh viên năm nhất năng động tích cực nè!</p>
+                        </div>
+                    </div>
+                    <div class="journey-item">
+                        <img src="anh3.jpg" alt="Năm hai">
+                        <div class="journey-item-content">
+                            <h3>Năm Hai: 2022-2023</h3>
+                            <p>Vẫn luôn không ngừng học tập và hoàn thiện bản thân</p>
+                        </div>
+                    </div>
+                    <div class="journey-item">
+                        <img src="anh1.jpg" alt="Năm ba">
+                        <div class="journey-item-content">
+                            <h3>Năm Ba: 2023-2024</h3>
+                            <p>Lúc này bắt đầu đi thực tập lần đầu nè! đầy bỡ ngỡ và kỉ niệm </p>
+                        </div>
+                    </div>
+                    <div class="journey-item">
+                        <img src="anh2.jpg" alt="Năm bốn">
+                        <div class="journey-item-content">
+                            <h3>Năm Tư: 2024-2025</h3>
+                            <p>Sắp ra trường rồi!!!</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // New explosive firework effect for background
+        function startExplosiveFireworks() {
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            function explode() {
+                confetti({
+                    particleCount: 100,
+                    spread: 120,
+                    startVelocity: 45,
+                    colors: ['#ff0000', '#ff9900', '#ffd700', '#33cc33', '#0066cc'],
+                    shapes: ['circle', 'star'],
+                    origin: { x: randomInRange(0, 1), y: randomInRange(0, 1) },
+                    scalar: randomInRange(0.8, 1.2),
+                    zIndex: 3000,
+                    gravity: 0.8,
+                    ticks: 90
+                });
+                setTimeout(explode, randomInRange(1000, 2000));
+            }
+
+            explode();
+        }
+
+        window.addEventListener('load', startExplosiveFireworks);
+
+        // New firework effect for invitation reveal
+        function launchFireworks() {
+            const duration = 5 * 1000;
+            const animationEnd = Date.now() + duration;
+            const defaults = { startVelocity: 35, spread: 360, ticks: 70, zIndex: 1000 };
+
+            function randomInRange(min, max) {
+                return Math.random() * (max - min) + min;
+            }
+
+            const interval = setInterval(function () {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) {
+                    return clearInterval(interval);
+                }
+
+                const particleCount = 60 * (timeLeft / duration);
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    shapes: ['star', 'circle'],
+                    colors: ['#ff0000', '#ffd700', '#33cc33'],
+                    origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+                });
+                confetti({
+                    ...defaults,
+                    particleCount,
+                    shapes: ['star', 'circle'],
+                    colors: ['#ff0000', '#ffd700', '#33cc33'],
+                    origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+                });
+            }, 250);
+        }
+
+        // New firework effect for form submission
+        function triggerGraduationEffect() {
+            const effectContainer = document.getElementById('graduationEffect');
+            effectContainer.classList.add('show');
+
+            const duration = 4000;
+            const animationEnd = Date.now() + duration;
+            const colors = ['#ff0000', '#ff9900', '#ffd700', '#33cc33', '#0066cc'];
+
+            function burstFireworks() {
+                const timeLeft = animationEnd - Date.now();
+                if (timeLeft <= 0) return;
+
+                confetti({
+                    particleCount: 200,
+                    spread: 90,
+                    startVelocity: 50,
+                    colors: colors,
+                    shapes: ['star', 'circle'],
+                    origin: { x: Math.random(), y: Math.random() * 0.5 },
+                    zIndex: 2001,
+                    scalar: 1.2,
+                    gravity: 0.7
+                });
+                confetti({
+                    particleCount: 100,
+                    spread: 120,
+                    startVelocity: 30,
+                    colors: colors,
+                    shapes: ['circle'],
+                    origin: { x: Math.random(), y: Math.random() * 0.5 },
+                    zIndex: 2001,
+                    scalar: 0.8
+                });
+
+                setTimeout(burstFireworks, 600);
+            }
+
+            burstFireworks();
+
+            setTimeout(() => {
+                effectContainer.classList.remove('show');
+                showGraduationText();
+            }, duration);
+        }
+
+        // Show graduation text overlay
+        function showGraduationText() {
+            const textOverlay = document.getElementById('graduationText');
+            textOverlay.classList.add('show');
+            setTimeout(() => {
+                textOverlay.classList.remove('show');
+            }, 3000);
+        }
+
+        // Handle form submission
+        function submitName() {
+            const guestName = document.getElementById('guestName').value.trim();
+            if (guestName === '') {
+                alert('Vui lòng nhập tên của bạn!');
+                return;
+            }
+            document.getElementById('displayName').textContent = guestName;
+            document.getElementById('nameForm').style.display = 'none';
+            triggerGraduationEffect();
+            setTimeout(() => {
+                document.getElementById('invitation').style.display = 'block';
+                document.body.style.alignItems = 'flex-start';
+                launchFireworks();
+                const audio = document.getElementById('backgroundMusic');
+                audio.play().catch(error => {
+                    console.log('Autoplay prevented:', error);
+                });
+            }, 7000); // Adjusted for text overlay duration
+        }
+
+        // Countdown timer
+        function updateCountdown() {
+            const eventDate = new Date('2025-05-30T18:00:00');
+            const now = new Date();
+            const diff = eventDate - now;
+
+            if (diff <= 0) {
+                document.getElementById('countdown').innerHTML = '<p>Sự kiện đã bắt đầu!</p>';
+                return;
+            }
+
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+            document.getElementById('days').textContent = days;
+            document.getElementById('hours').textContent = hours;
+            document.getElementById('minutes').textContent = minutes;
+            document.getElementById('seconds').textContent = seconds;
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        // Photo slider
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-item');
+        const totalSlides = slides.length;
+
+        function updateSlider() {
+            const slideWidth = slides[0].getBoundingClientRect().width;
+            const offset = -currentSlide * slideWidth;
+            document.getElementById('sliderContainer').style.transform = `translateX(${offset}px)`;
+        }
+
+        function nextSlide() {
+            currentSlide = (currentSlide + 1) % totalSlides;
+            updateSlider();
+        }
+
+        function prevSlide() {
+            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+            updateSlider();
+        }
+
+        setInterval(nextSlide, 5000);
+        window.addEventListener('resize', updateSlider);
+
+        // Smooth scrolling for anchors
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Intersection observer for fade-in
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in');
+                }
+            });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.detail-item, .photo-slider, .countdown, .thank-you, .journey-item').forEach(item => {
+            observer.observe(item);
+        });
+
+        const style = document.createElement('style');
+        style.innerHTML = `
+            .fade-in {
+                animation: fadeIn 0.6s ease-in;
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+</body>
+</html>
